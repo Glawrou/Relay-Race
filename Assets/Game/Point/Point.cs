@@ -58,6 +58,17 @@ namespace AndreyNosov.RelayRace.Game
             _runers.Enqueue(runer);
         }
 
+        public void Connect(Point point)
+        {
+            if (!_sites.Any(s => s.PlaceOwner != null))
+            {
+                return;
+            }
+
+            var runer = _sites.FirstOrDefault(s => s.PlaceOwner != null).PlaceOwner;
+            runer.Go(point.transform.position);
+        }
+
         private void FixedUpdate()
         {
             FillPlaces();

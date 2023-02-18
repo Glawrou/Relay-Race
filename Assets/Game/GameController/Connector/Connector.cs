@@ -15,10 +15,11 @@ namespace AndreyNosov.RelayRace.Game
             _line = GetComponent<LineRenderer>();
         }
 
-        public void Fill(Point startPoint, Point finishPoint)
+        public void Connect(Point startPoint, Point finishPoint)
         {
             _startPoint = startPoint;
             _finishPoint = finishPoint;
+            _startPoint.Connect(_finishPoint);
         }
 
         private void LateUpdate()

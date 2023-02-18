@@ -24,6 +24,11 @@ namespace AndreyNosov.RelayRace.Game
             Inventary.OnChanges += _inventoryDisplay.UpdateState;
         }
 
+        public void Go(Vector3 point)
+        {
+            Go(new Vector3[] { point });
+        }
+
         public void Go(Vector3[] points)
         {
             ClearDirections();

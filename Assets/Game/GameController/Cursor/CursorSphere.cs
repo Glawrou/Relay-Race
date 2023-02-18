@@ -33,7 +33,7 @@ namespace AndreyNosov.RelayRace.Game
 
             if (_startPoint != null && _finishPoint != null && _startPoint != _finishPoint)
             {
-                Instantiate(_connectorPrefab, null).Fill(_startPoint, _finishPoint);
+                Instantiate(_connectorPrefab, null).Connect(_startPoint, _finishPoint);
             }
         }
 
