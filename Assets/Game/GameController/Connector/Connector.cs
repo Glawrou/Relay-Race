@@ -30,7 +30,12 @@ namespace AndreyNosov.RelayRace.Game
         }
 
         private void LateUpdate()
-        {
+        {   
+            if (_startPoint == null)
+            {
+                Destroy(gameObject);
+            }
+
             if (_finishPoint == null)
             {
                 ConnectPoints(_startPoint.transform, _cursorSphere.transform);

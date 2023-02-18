@@ -2,11 +2,14 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using AndreyNosov.RelayRace.Game.Storage;
+using System;
 
 namespace AndreyNosov.RelayRace.Game
 {
     public class Point : MonoBehaviour
     {
+        public Action<Point> OnReceived;
+
         public Inventory MyInventory { get; private set; }
 
         public const string PointTag = "Base";
@@ -14,9 +17,12 @@ namespace AndreyNosov.RelayRace.Game
         [SerializeField] private Site[] _sites;
         [SerializeField] private InventoryDisplay _inventoryDisplay;
         [SerializeField] private Runer _runerPrefab;
+        [SerializeField] private bool _isNeedItem = false;
+        [SerializeField] private InventoryItemType _needItemType;
 
         private bool _isSelected = false;
         private Renderer _renderer;
+        private Color _defaultColot;
         private Queue<Runer> _runers = new Queue<Runer>();
 
         private const float OrbitalRadius = 6f;
@@ -31,6 +37,8 @@ namespace AndreyNosov.RelayRace.Game
             }
 
             MyInventory.OnChanges += _inventoryDisplay.UpdateState;
+            _defaultColot = GetColor(_needItemType);
+            _renderer.material.color = _defaultColot;
         }
 
         [ContextMenu("Spawn")]
@@ -50,7 +58,7 @@ namespace AndreyNosov.RelayRace.Game
         public void Select()
         {
             _isSelected = !_isSelected;
-            _renderer.material.color = _isSelected ? Color.red : Color.white;
+            _renderer.material.color = _isSelected ? Color.red : _defaultColot;
         }
 
         public void AddQueue(Runer runer)
@@ -94,6 +102,28 @@ namespace AndreyNosov.RelayRace.Game
             }
         }
 
+        private Color GetColor(InventoryItemType itemType)
+        {
+            if (!_isNeedItem)
+            {
+                return Color.white;
+            }
+
+            switch (itemType)
+            {
+                case InventoryItemType.RelayBatonBlue:
+                    return Color.blue;
+                case InventoryItemType.RelayBatonRed:
+                    return Color.red;
+                case InventoryItemType.RelayBatonYellow:
+                    return Color.yellow;
+                case InventoryItemType.RelayBatonViolet:
+                    return Color.cyan;
+                default:
+                    return Color.white;
+            }
+        }
+
         private Site FindFreeSeat()
         {
             return _sites.FirstOrDefault(s => s.PlaceOwner == null);
@@ -101,6 +131,15 @@ namespace AndreyNosov.RelayRace.Game
 
         private void HandOverHandler(Inventory inventory)
         {
+            if (_isNeedItem && inventory.Storage.Any(s => s == _needItemType))
+            {
+                inventory.Remove(_needItemType);
+                _renderer.material.color = Color.white;
+                _defaultColot = Color.white;
+                _isNeedItem = false;
+                OnReceived?.Invoke(this);
+            }
+
             var items = inventory.Storage.ToArray();
             foreach (var item in items)
             {
