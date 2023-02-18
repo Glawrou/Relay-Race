@@ -14,7 +14,7 @@ namespace AndreyNosov.RelayRace.Game
 
         public void Go(Vector3[] points)
         {
-            StopCoroutine(_go);
+            ClearDirections();
             _go = StartCoroutine(MovementProcess(points));
         }
 
@@ -31,6 +31,16 @@ namespace AndreyNosov.RelayRace.Game
 
                 yield return new WaitForSeconds(DelayBetweenPoints);
             }
+        }
+
+        private void ClearDirections()
+        {
+            if (_go == null)
+            {
+                return;
+            }
+
+            StopCoroutine(_go);
         }
     }
 }

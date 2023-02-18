@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 namespace AndreyNosov.RelayRace.Game
 {
@@ -18,6 +17,16 @@ namespace AndreyNosov.RelayRace.Game
 
         private void FixedUpdate()
         {
+            FillPlaces();
+        }
+
+        private void FillPlaces()
+        {
+            if (!_sites.Any(s => s.PlaceOwner == null))
+            {
+                return;
+            }
+
             if (_runers.Count > 0)
             {
                 var site = FindFreeSeat();
