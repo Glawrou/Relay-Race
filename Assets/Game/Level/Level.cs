@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 namespace AndreyNosov.RelayRace.Game
 {
     public class Level : MonoBehaviour
     {
+        public Action OnWin;
         [SerializeField] public Point[] _points;
 
         private void Start()
@@ -31,7 +33,7 @@ namespace AndreyNosov.RelayRace.Game
 
         private void WinHandler()
         {
-            Debug.LogError("Win");
+            OnWin?.Invoke();
         }
     }
 }
