@@ -15,6 +15,8 @@ namespace AndreyNosov.RelayRace.Game
 
         private Queue<Runer> _runers = new Queue<Runer>();
 
+        private const float OrbitalRadius = 6f;
+
         private void Awake()
         {
             Inventory = new Inventory();
@@ -31,7 +33,7 @@ namespace AndreyNosov.RelayRace.Game
         {
             if (!_sites.Any(s => s.PlaceOwner == null))
             {
-                Instantiate(_runerPrefab, _sites[0].GetPathToSite()[0], Quaternion.identity, null).GoOrbit(transform.position, 5);
+                Instantiate(_runerPrefab, _sites[0].GetPathToSite()[0], Quaternion.identity, null).GoOrbit(transform.position, OrbitalRadius);
                 return;
             }
 
