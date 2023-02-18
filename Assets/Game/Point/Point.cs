@@ -7,7 +7,7 @@ namespace AndreyNosov.RelayRace.Game
 {
     public class Point : MonoBehaviour
     {
-        public Inventory Inventory { get; private set; }
+        public Inventory MyInventory { get; private set; }
 
         public const string PointTag = "Base";
 
@@ -23,14 +23,14 @@ namespace AndreyNosov.RelayRace.Game
 
         private void Awake()
         {
-            Inventory = new Inventory();
+            MyInventory = new Inventory();
             _renderer = GetComponent<Renderer>();
             foreach (var site in _sites)
             {
                 site.OnHandedOver += HandOverHandler;
             }
 
-            Inventory.OnChanges += _inventoryDisplay.UpdateState;
+            MyInventory.OnChanges += _inventoryDisplay.UpdateState;
         }
 
         [ContextMenu("Spawn")]
@@ -64,8 +64,13 @@ namespace AndreyNosov.RelayRace.Game
             {
                 return;
             }
-
+            
             var runer = _sites.FirstOrDefault(s => s.PlaceOwner != null).PlaceOwner;
+            if (MyInventory.Storage.Count != 0)
+            {
+                runer.Inventary.Transfer(MyInventory, MyInventory.Storage[0]);
+            }
+            
             runer.Go(point.transform.position);
         }
 
@@ -96,9 +101,10 @@ namespace AndreyNosov.RelayRace.Game
 
         private void HandOverHandler(Inventory inventory)
         {
-            foreach (var item in inventory.Storage)
+            var items = inventory.Storage.ToArray();
+            foreach (var item in items)
             {
-                Inventory.Transfer(inventory, item);
+                MyInventory.Transfer(inventory, item);
             }
         }
     }

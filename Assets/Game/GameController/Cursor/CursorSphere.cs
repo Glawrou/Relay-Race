@@ -13,6 +13,8 @@ namespace AndreyNosov.RelayRace.Game
         private Point _startPoint;
         private Point _finishPoint;
 
+        private Connector _connector;
+
         public void MoveMouseHandler(Vector3 input)
         {
             transform.position = new Vector3(input.x, AcceptableHeight, input.z);
@@ -22,7 +24,15 @@ namespace AndreyNosov.RelayRace.Game
         {
             CheckRenderer();
             _renderer.material.color = Color.red;
+            if (_currentPoint == null)
+            {
+                return;
+            }
+
+            DestroyLine();
             _startPoint = _currentPoint;
+            _connector = Instantiate(_connectorPrefab, null);
+            _connector.Fill(_startPoint, this);
         }
 
         public void MouseUpHandle(InputMouseData inputMouseData)
@@ -30,10 +40,12 @@ namespace AndreyNosov.RelayRace.Game
             CheckRenderer();
             _renderer.material.color = Color.white;
             _finishPoint = _currentPoint;
+            DestroyLine();
 
             if (_startPoint != null && _finishPoint != null && _startPoint != _finishPoint)
             {
-                Instantiate(_connectorPrefab, null).Connect(_startPoint, _finishPoint);
+                _connector = Instantiate(_connectorPrefab, null);
+                _connector.Connect(_startPoint, _finishPoint);
             }
         }
 
@@ -42,6 +54,15 @@ namespace AndreyNosov.RelayRace.Game
             if (_renderer == null)
             {
                 _renderer = GetComponent<MeshRenderer>();
+            }
+        }
+
+        private void DestroyLine()
+        {
+            if (_connector)
+            {
+                Destroy(_connector.gameObject);
+                _connector = null;
             }
         }
 

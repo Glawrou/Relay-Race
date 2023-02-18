@@ -4,8 +4,6 @@ namespace AndreyNosov.RelayRace.Game.Storage
 {
     public class InventoryDisplay : MonoBehaviour
     {
-        [SerializeField] private Camera _camera;
-
         [SerializeField] private InventoryItemView _itemViewPrefab;
         [SerializeField] private Transform _panel;
 
@@ -13,11 +11,7 @@ namespace AndreyNosov.RelayRace.Game.Storage
 
         private void Awake()
         {
-            if (_camera == null)
-            {
-                _camera = Camera.main;
-                Debug.LogWarning("InventoryDisplay > Awake > (The link to the camera was empty. I had to look for a camera.)");
-            }
+            transform.LookAt(transform.position + Vector3.up);
         }
 
         public void UpdateState(InventoryItemType[] inventaryItems)
@@ -37,11 +31,6 @@ namespace AndreyNosov.RelayRace.Game.Storage
                 _items[i] = Instantiate(_itemViewPrefab, _panel);
                 _items[i].Fill(inventaryItems[i]);
             }
-        }
-
-        private void LateUpdate()
-        {
-            transform.LookAt(_camera.transform.position);
         }
 
         private void ClearItems()

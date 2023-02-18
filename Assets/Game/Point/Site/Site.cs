@@ -40,7 +40,7 @@ namespace AndreyNosov.RelayRace.Game
 
         private void OnTriggerEnter(Collider other)
         {
-            if (PlaceOwner != null)
+            if (PlaceOwner != null && PlaceOwner.gameObject != other.gameObject)
             {
                 return;
             }

@@ -7,12 +7,19 @@ namespace AndreyNosov.RelayRace.Game
     {
         [SerializeField] private Point _startPoint;
         [SerializeField] private Point _finishPoint;
+        [SerializeField] private CursorSphere _cursorSphere;
 
         private LineRenderer _line;
 
         private void Awake()
         {
             _line = GetComponent<LineRenderer>();
+        }
+
+        public void Fill(Point startPoint, CursorSphere finishPoint)
+        {
+            _startPoint = startPoint;
+            _cursorSphere = finishPoint;
         }
 
         public void Connect(Point startPoint, Point finishPoint)
@@ -24,14 +31,25 @@ namespace AndreyNosov.RelayRace.Game
 
         private void LateUpdate()
         {
-            if (_startPoint == null || _finishPoint == null)
+            if (_finishPoint == null)
+            {
+                ConnectPoints(_startPoint.transform, _cursorSphere.transform);
+                return;
+            }
+
+            ConnectPoints(_startPoint.transform, _finishPoint.transform);
+        }
+
+        private void ConnectPoints(Transform point1, Transform point2)
+        {
+            if (point1 == null || point2 == null)
             {
                 _line.enabled = false;
                 return;
             }
 
             _line.enabled = true;
-            _line.SetPositions(new Vector3[] { _startPoint.transform.position, _finishPoint.transform.position });
+            _line.SetPositions(new Vector3[] { point1.position, point2.position });
         }
     }
 }
