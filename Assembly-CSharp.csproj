@@ -65,6 +65,10 @@
     <Compile Include="Assets\Game\Inventory\InventoryItemView.cs" />
     <Compile Include="Assets\Game\Inventory\InventoryItemType.cs" />
     <Compile Include="Assets\Game\Inventory\InventorySpriteGether.cs" />
+    <Compile Include="Assets\Game\GameController\PlayerMouseInput.cs" />
+    <Compile Include="Assets\Game\GameController\InputMouseData.cs" />
+    <Compile Include="Assets\Game\GameController\GameController.cs" />
+    <Compile Include="Assets\Game\GameController\Cursor\Cursor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
