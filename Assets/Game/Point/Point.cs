@@ -11,6 +11,7 @@ namespace AndreyNosov.RelayRace.Game
 
         [SerializeField] private Site[] _sites;
         [SerializeField] private InventoryDisplay _inventoryDisplay;
+        [SerializeField] private Runer _runerPrefab;
 
         private Queue<Runer> _runers = new Queue<Runer>();
 
@@ -18,6 +19,13 @@ namespace AndreyNosov.RelayRace.Game
         {
             Inventory = new Inventory();
             Inventory.OnChanges += _inventoryDisplay.UpdateState;
+        }
+
+        [ContextMenu("Spawn")]
+        public void Spawn()
+        {
+            var runer = Instantiate(_runerPrefab, transform.position + new Vector3(0, 0, 1), Quaternion.identity, null);
+            runer.GoOrbit(transform.position, 5);
         }
 
         public void AddQueue(Runer runer)

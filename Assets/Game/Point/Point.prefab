@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8633334280904615863
 Transform:
   m_ObjectHideFlags: 0
@@ -560,6 +560,7 @@ MonoBehaviour:
   - {fileID: 8633334282087456031}
   - {fileID: 8633334281651872332}
   _inventoryDisplay: {fileID: 6267800601585010951}
+  _runerPrefab: {fileID: 4615030840632434700, guid: 104d82f26a53f8a4cba069e79bb166ce, type: 3}
 --- !u!33 &8633334281916531456
 MeshFilter:
   m_ObjectHideFlags: 0
