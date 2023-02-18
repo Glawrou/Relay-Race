@@ -23,14 +23,9 @@ namespace AndreyNosov.RelayRace.Game
 
         private Runer _placeOwner;
 
-        public Vector3 GetFarPoint()
+        public Vector3[] GetPathToSite()
         {
-            return _farPoint.transform.position;
-        }
-
-        public Vector3 GetNearPoint()
-        {
-            return _nearPoint.transform.position;
+            return new Vector3[] { _farPoint.transform.position, _nearPoint.transform.position };
         }
     }
 }

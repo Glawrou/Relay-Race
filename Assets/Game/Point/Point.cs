@@ -22,7 +22,7 @@ namespace AndreyNosov.RelayRace.Game
             {
                 var site = FindFreeSeat();
                 site.PlaceOwner = _runers.Dequeue();
-                site.PlaceOwner.SetSite(site);
+                site.PlaceOwner.Go(site.GetPathToSite());
             }
         }
 

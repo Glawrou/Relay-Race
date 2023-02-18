@@ -7,39 +7,29 @@ namespace AndreyNosov.RelayRace.Game
     {
         [SerializeField] private float _speed;
 
-        private Site _currentSite;
-
         private const float ConnectionDistance = 0.1f;
+        private const float DelayBetweenPoints = 1f;
 
-        public void SetSite(Site site)
+        private Coroutine _go;
+
+        public void Go(Vector3[] points)
         {
-            _currentSite = site;
-            StartCoroutine(GoTiSite());
+            StopCoroutine(_go);
+            _go = StartCoroutine(MovementProcess(points));
         }
 
-        private IEnumerator GoTiSite()
+        private IEnumerator MovementProcess(Vector3[] points)
         {
-            var nearPoint = _currentSite.GetNearPoint();
-            var farPoint = _currentSite.GetFarPoint();
-
-            transform.LookAt(farPoint);
-            yield return new WaitForSeconds(1);
-
-            while (Vector3.Distance(transform.position, farPoint) > ConnectionDistance)
+            foreach (var point in points)
             {
-                transform.position = Vector3.MoveTowards(transform.position, farPoint, _speed);
-                yield return new WaitForFixedUpdate();
-                transform.LookAt(farPoint);
-            }
+                transform.LookAt(point);
+                while (Vector3.Distance(transform.position, point) > ConnectionDistance)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, point, _speed);
+                    yield return new WaitForFixedUpdate();
+                }
 
-            transform.LookAt(nearPoint);
-            yield return new WaitForSeconds(1);
-
-            while (Vector3.Distance(transform.position, nearPoint) > ConnectionDistance)
-            {
-                transform.position = Vector3.MoveTowards(transform.position, nearPoint, _speed);
-                yield return new WaitForFixedUpdate();
-                transform.LookAt(nearPoint);
+                yield return new WaitForSeconds(DelayBetweenPoints);
             }
         }
     }

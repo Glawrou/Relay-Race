@@ -56,10 +56,10 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Game\Runer\Runer.cs" />
-    <Compile Include="Assets\Game\Point\Point.cs" />
-    <Compile Include="Assets\Game\Point\Site.cs" />
     <Compile Include="Assets\Game\Point\DetectionField.cs" />
+    <Compile Include="Assets\Game\Runer\Runer.cs" />
+    <Compile Include="Assets\Game\Point\Site.cs" />
+    <Compile Include="Assets\Game\Point\Point.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
