@@ -48,9 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d29b857bf820a9448349aaf0dcab925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _renderer: {fileID: 5329706306868474048}
-  _defaultMaterial: {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
-  _redMaterial: {fileID: 2100000, guid: 4e9226fef561b6e4b8ad5ba4cba72d84, type: 2}
+  _connectorPrefab: {fileID: 6992878445476263001, guid: fcd637122f02b0c41889b2ce7b278566, type: 3}
 --- !u!33 &5329706306868474049
 MeshFilter:
   m_ObjectHideFlags: 0

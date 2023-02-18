@@ -56,19 +56,20 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Game\Point\DetectionField.cs" />
-    <Compile Include="Assets\Game\Runer\Runer.cs" />
-    <Compile Include="Assets\Game\Point\Site\Site.cs" />
-    <Compile Include="Assets\Game\Point\Point.cs" />
-    <Compile Include="Assets\Game\Inventory\InventoryDisplay.cs" />
-    <Compile Include="Assets\Game\Inventory\Inventory.cs" />
-    <Compile Include="Assets\Game\Inventory\InventoryItemView.cs" />
     <Compile Include="Assets\Game\Inventory\InventoryItemType.cs" />
+    <Compile Include="Assets\Game\Point\DetectionField.cs" />
+    <Compile Include="Assets\Game\GameController\Cursor\CursorSphere.cs" />
+    <Compile Include="Assets\Game\GameController\Connector\Connector.cs" />
     <Compile Include="Assets\Game\Inventory\InventorySpriteGether.cs" />
-    <Compile Include="Assets\Game\GameController\PlayerMouseInput.cs" />
+    <Compile Include="Assets\Game\Runer\Runer.cs" />
     <Compile Include="Assets\Game\GameController\InputMouseData.cs" />
     <Compile Include="Assets\Game\GameController\GameController.cs" />
-    <Compile Include="Assets\Game\GameController\Cursor\Cursor.cs" />
+    <Compile Include="Assets\Game\Point\Site\Site.cs" />
+    <Compile Include="Assets\Game\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Game\Inventory\InventoryItemView.cs" />
+    <Compile Include="Assets\Game\GameController\PlayerMouseInput.cs" />
+    <Compile Include="Assets\Game\Point\Point.cs" />
+    <Compile Include="Assets\Game\Inventory\InventoryDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

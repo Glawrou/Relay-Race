@@ -716,12 +716,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _inputMouseData: {fileID: 514974932}
-  _tester: {fileID: 1377488142}
+  _tester: {fileID: 1471764529}
 --- !u!4 &1377488142 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5329706306868474050, guid: ecdab9d46936c2647a22583895a2d56d, type: 3}
   m_PrefabInstance: {fileID: 5329706306030222796}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1471764529 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5329706306868474076, guid: ecdab9d46936c2647a22583895a2d56d, type: 3}
+  m_PrefabInstance: {fileID: 5329706306030222796}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d29b857bf820a9448349aaf0dcab925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1561064036
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,5 +923,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cursor
       objectReference: {fileID: 0}
+    - target: {fileID: 5329706306868474076, guid: ecdab9d46936c2647a22583895a2d56d, type: 3}
+      propertyPath: _connectorPrefab
+      value: 
+      objectReference: {fileID: 6992878445476263001, guid: fcd637122f02b0c41889b2ce7b278566, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ecdab9d46936c2647a22583895a2d56d, type: 3}

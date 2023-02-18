@@ -9,10 +9,14 @@ namespace AndreyNosov.RelayRace.Game
     {
         public Inventory Inventory { get; private set; }
 
+        public const string PointTag = "Base";
+
         [SerializeField] private Site[] _sites;
         [SerializeField] private InventoryDisplay _inventoryDisplay;
         [SerializeField] private Runer _runerPrefab;
 
+        private bool _isSelected = false;
+        private Renderer _renderer;
         private Queue<Runer> _runers = new Queue<Runer>();
 
         private const float OrbitalRadius = 6f;
@@ -20,6 +24,7 @@ namespace AndreyNosov.RelayRace.Game
         private void Awake()
         {
             Inventory = new Inventory();
+            _renderer = GetComponent<Renderer>();
             foreach (var site in _sites)
             {
                 site.OnHandedOver += HandOverHandler;
@@ -40,6 +45,12 @@ namespace AndreyNosov.RelayRace.Game
             var sites = _sites.FirstOrDefault(s => s.PlaceOwner == null);
             var runner = Instantiate(_runerPrefab, sites.GetPathToSite()[0], Quaternion.identity, null);
             runner.Go(sites.GetPathToSite());
+        }
+
+        public void Select()
+        {
+            _isSelected = !_isSelected;
+            _renderer.material.color = _isSelected ? Color.red : Color.white;
         }
 
         public void AddQueue(Runer runer)

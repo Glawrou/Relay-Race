@@ -5,7 +5,7 @@ namespace AndreyNosov.RelayRace.Game
     public class GameController : MonoBehaviour
     {
         [SerializeField] private PlayerMouseInput _inputMouseData;
-        [SerializeField] private Cursor _tester;
+        [SerializeField] private CursorSphere _tester;
 
         private void Awake()
         {
