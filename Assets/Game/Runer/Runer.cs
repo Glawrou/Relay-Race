@@ -1,16 +1,26 @@
 using System.Collections;
 using UnityEngine;
+using AndreyNosov.RelayRace.Game.Storage;
 
 namespace AndreyNosov.RelayRace.Game
 {
     public class Runer : MonoBehaviour
     {
+        public Inventory Inventary { get; private set; }
+
         [SerializeField] private float _speed;
+        [SerializeField] private InventoryDisplay _inventoryDisplay;
 
         private const float ConnectionDistance = 0.1f;
         private const float DelayBetweenPoints = 1f;
 
         private Coroutine _go;
+
+        private void Awake()
+        {
+            Inventary = new Inventory();
+            Inventary.OnChanges += _inventoryDisplay.UpdateState;
+        }
 
         public void Go(Vector3[] points)
         {

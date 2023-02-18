@@ -60,6 +60,11 @@
     <Compile Include="Assets\Game\Runer\Runer.cs" />
     <Compile Include="Assets\Game\Point\Site.cs" />
     <Compile Include="Assets\Game\Point\Point.cs" />
+    <Compile Include="Assets\Game\Inventory\InventoryDisplay.cs" />
+    <Compile Include="Assets\Game\Inventory\Inventory.cs" />
+    <Compile Include="Assets\Game\Inventory\InventoryItemView.cs" />
+    <Compile Include="Assets\Game\Inventory\InventoryItemType.cs" />
+    <Compile Include="Assets\Game\Inventory\InventorySpriteGether.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
