@@ -7,19 +7,19 @@ namespace AndreyNosov.RelayRace.Game.Storage
 {
     public class Inventory
     {
-        public Action<InventoryItemType[]> OnChanges;
+        public List<InventoryItemType> Storage { get; private set; }
 
-        private List<InventoryItemType> _inventary;
+        public Action<InventoryItemType[]> OnChanges;
 
         public Inventory(InventoryItemType[] inventaryItems = null)
         {
-            _inventary = new List<InventoryItemType>();
+            Storage = new List<InventoryItemType>();
             if (inventaryItems == null)
             {
                 return;
             }
 
-            _inventary.AddRange(inventaryItems);
+            Storage.AddRange(inventaryItems);
         }
 
         public void Transfer(Inventory invenraty, InventoryItemType item)
@@ -35,19 +35,19 @@ namespace AndreyNosov.RelayRace.Game.Storage
 
         public void Add(InventoryItemType item)
         {
-            _inventary.Add(item);
-            OnChanges?.Invoke(_inventary.ToArray());
+            Storage.Add(item);
+            OnChanges?.Invoke(Storage.ToArray());
         }
 
         public bool Remove(InventoryItemType item)
         {
-            if (!_inventary.Any(i => i == item))
+            if (!Storage.Any(i => i == item))
             {
                 return false;
             }
 
-            _inventary.Remove(_inventary.Find(i => i == item));
-            OnChanges?.Invoke(_inventary.ToArray());
+            Storage.Remove(Storage.Find(i => i == item));
+            OnChanges?.Invoke(Storage.ToArray());
             return true;
         }
     }

@@ -8,6 +8,8 @@ namespace AndreyNosov.RelayRace.Game
     {
         public Inventory Inventary { get; private set; }
 
+        public const string RunnerTag = "Runer";
+
         [SerializeField] private float _speed;
         [SerializeField] private InventoryDisplay _inventoryDisplay;
 
@@ -33,6 +35,11 @@ namespace AndreyNosov.RelayRace.Game
             var numPoints = (int)radius * PointsPerRadius;
             ClearDirections();
             _go = StartCoroutine(MovementOrbitProcess(GetOrbit(points, radius, numPoints)));
+        }
+
+        public Inventory Connect()
+        {
+            return Inventary;
         }
 
         private IEnumerator MovementOrbitProcess(Vector3[] points)

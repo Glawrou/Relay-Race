@@ -18,14 +18,26 @@ namespace AndreyNosov.RelayRace.Game
         private void Awake()
         {
             Inventory = new Inventory();
+            foreach (var site in _sites)
+            {
+                site.OnHandedOver += HandOverHandler;
+            }
+
             Inventory.OnChanges += _inventoryDisplay.UpdateState;
         }
 
         [ContextMenu("Spawn")]
         public void Spawn()
         {
-            var runer = Instantiate(_runerPrefab, transform.position + new Vector3(0, 0, 1), Quaternion.identity, null);
-            runer.GoOrbit(transform.position, 5);
+            if (!_sites.Any(s => s.PlaceOwner == null))
+            {
+                Instantiate(_runerPrefab, _sites[0].GetPathToSite()[0], Quaternion.identity, null).GoOrbit(transform.position, 5);
+                return;
+            }
+
+            var sites = _sites.FirstOrDefault(s => s.PlaceOwner == null);
+            var runner = Instantiate(_runerPrefab, sites.GetPathToSite()[0], Quaternion.identity, null);
+            runner.Go(sites.GetPathToSite());
         }
 
         public void AddQueue(Runer runer)
@@ -56,6 +68,14 @@ namespace AndreyNosov.RelayRace.Game
         private Site FindFreeSeat()
         {
             return _sites.FirstOrDefault(s => s.PlaceOwner == null);
+        }
+
+        private void HandOverHandler(Inventory inventory)
+        {
+            foreach (var item in inventory.Storage)
+            {
+                Inventory.Transfer(inventory, item);
+            }
         }
     }
 }
