@@ -71,6 +71,7 @@
     <Compile Include="Assets\Game\Point\Point.cs" />
     <Compile Include="Assets\Game\Inventory\InventoryDisplay.cs" />
     <Compile Include="Assets\Game\Point\PointFiller.cs" />
+    <Compile Include="Assets\Game\GameController\CameraConstantWidth.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
