@@ -18,6 +18,7 @@ namespace AndreyNosov.RelayRace.Game
 
         private const float ConnectionDistance = 0.1f;
         private const int PointsPerRadius = 20;
+        private bool _moveOrbit;
 
         private Coroutine _go;
 
@@ -27,7 +28,7 @@ namespace AndreyNosov.RelayRace.Game
             Inventary.OnChanges += _inventoryDisplay.UpdateState;
         }
 
-        public void Go(Vector3 point)
+        public void GoExitSite(Vector3 point)
         {
             Go(new Vector3[] { point });
         }
@@ -35,13 +36,13 @@ namespace AndreyNosov.RelayRace.Game
         public void GoToSite(Vector3[] site, Vector3 point)
         {
             ClearDirections();
-            _go = StartCoroutine(MovementProcess(CalculateTrajectory(site, point)));
+            _go = StartCoroutine(MovementProcess(CalculateTrajectoryToSite(site, point)));
         }
 
         public void GoExitSite(Vector3 newPoint, Vector3 point)
         {
             ClearDirections();
-            _go = StartCoroutine(MovementProcess(CalculateTrajectory(new Vector3[] { newPoint }, point)));
+            _go = StartCoroutine(MovementProcess(CalculateTrajectoryExitSite(newPoint, point)));
         }
 
         public void Go(Vector3[] points)
@@ -109,7 +110,7 @@ namespace AndreyNosov.RelayRace.Game
             return orbitPoints;
         }
 
-        private Vector3[] CalculateTrajectory(Vector3[] site, Vector3 orbitPoint)
+        private Vector3[] CalculateTrajectoryToSite(Vector3[] site, Vector3 orbitPoint)
         {
             var radius = Point.OrbitalRadius;
             var numPoints = (int)radius * PointsPerRadius;
@@ -119,6 +120,19 @@ namespace AndreyNosov.RelayRace.Game
             var list = new List<Vector3>();
             list.AddRange(GetPointsBetweenEntranceAndExit(orbit, entrance, exit));
             list.AddRange(site);
+            return list.ToArray();
+        }
+
+        private Vector3[] CalculateTrajectoryExitSite(Vector3 site, Vector3 orbitPoint)
+        {
+            var radius = Point.OrbitalRadius;
+            var numPoints = (int)radius * PointsPerRadius;
+            var orbit = GetOrbit(orbitPoint, radius, numPoints);
+            var entrance = FindClosestOrbitPoint(orbit, transform.position);
+            var exit = FindClosestOrbitPoint(orbit, site);
+            var list = new List<Vector3>();
+            list.AddRange(GetPointsBetweenEntranceAndExit(orbit, entrance, exit));
+            list.Add(site);
             return list.ToArray();
         }
 

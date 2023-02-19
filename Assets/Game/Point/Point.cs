@@ -79,7 +79,7 @@ namespace AndreyNosov.RelayRace.Game
                 runer.Inventary.Transfer(MyInventory, MyInventory.Storage[0]);
             }
             
-            runer.Go(point.transform.position);
+            runer.GoExitSite(point.transform.position, transform.position);
         }
 
         private void FixedUpdate()
