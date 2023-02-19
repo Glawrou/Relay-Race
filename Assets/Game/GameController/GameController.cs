@@ -25,13 +25,13 @@ namespace AndreyNosov.RelayRace.Game
             _uIGameSceneController.OnClickGoMenu += ClickGoMenuHanler;
             _uIGameSceneController.OnNextLevel += ClickNextLevelHanler;
             _uIGameSceneController.OnReturnLevel += ClickReturnLevel;
-            _level.OnWin += WinHandler;
         }
 
         private void LoadLevel()
         {
             _inputMouseData.gameObject.SetActive(true);
             _level = Instantiate(_levels[_currentLevelNumber - 1], transform);
+            _level.OnWin += WinHandler;
         }
 
         private void WinHandler()
@@ -49,6 +49,7 @@ namespace AndreyNosov.RelayRace.Game
             if (_currentLevelNumber == _levels.Length)
             {
                 ClickGoMenuHanler();
+                return;
             }
 
             Destroy(_level.gameObject);

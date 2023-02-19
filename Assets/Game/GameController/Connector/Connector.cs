@@ -31,7 +31,7 @@ namespace AndreyNosov.RelayRace.Game
 
         private void LateUpdate()
         {   
-            if (_startPoint == null)
+            if (_startPoint == null || _cursorSphere == null)
             {
                 Destroy(gameObject);
             }
