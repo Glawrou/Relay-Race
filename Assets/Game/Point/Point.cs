@@ -25,7 +25,7 @@ namespace AndreyNosov.RelayRace.Game
         private Color _defaultColot;
         private Queue<Runer> _runers = new Queue<Runer>();
 
-        private const float OrbitalRadius = 6f;
+        public const float OrbitalRadius = 6f;
 
         private void Awake()
         {
@@ -98,7 +98,7 @@ namespace AndreyNosov.RelayRace.Game
             {
                 var site = FindFreeSeat();
                 site.PlaceOwner = _runers.Dequeue();
-                site.PlaceOwner.Go(site.GetPathToSite());
+                site.PlaceOwner.GoToSite(site.GetPathToSite(), transform.position);
             }
         }
 

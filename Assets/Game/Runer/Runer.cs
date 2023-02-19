@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using AndreyNosov.RelayRace.Game.Storage;
+using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace AndreyNosov.RelayRace.Game
 {
@@ -27,6 +30,18 @@ namespace AndreyNosov.RelayRace.Game
         public void Go(Vector3 point)
         {
             Go(new Vector3[] { point });
+        }
+        
+        public void GoToSite(Vector3[] site, Vector3 point)
+        {
+            ClearDirections();
+            _go = StartCoroutine(MovementProcess(CalculateTrajectory(site, point)));
+        }
+
+        public void GoExitSite(Vector3 newPoint, Vector3 point)
+        {
+            ClearDirections();
+            _go = StartCoroutine(MovementProcess(CalculateTrajectory(new Vector3[] { newPoint }, point)));
         }
 
         public void Go(Vector3[] points)
@@ -92,6 +107,50 @@ namespace AndreyNosov.RelayRace.Game
             }
 
             return orbitPoints;
+        }
+
+        private Vector3[] CalculateTrajectory(Vector3[] site, Vector3 orbitPoint)
+        {
+            var radius = Point.OrbitalRadius;
+            var numPoints = (int)radius * PointsPerRadius;
+            var orbit = GetOrbit(orbitPoint, radius, numPoints);
+            var entrance = FindClosestOrbitPoint(orbit, transform.position);
+            var exit = FindClosestOrbitPoint(orbit, site[0]);
+            var list = new List<Vector3>();
+            list.AddRange(GetPointsBetweenEntranceAndExit(orbit, entrance, exit));
+            list.AddRange(site);
+            return list.ToArray();
+        }
+
+        private static Vector3 FindClosestOrbitPoint(Vector3[] orbit, Vector3 point)
+        {
+            var closestPoint = Vector3.zero;
+            var closestDistance = Mathf.Infinity;
+
+            for (var i = 0; i < orbit.Length; i++)
+            {
+                var distance = Vector3.Distance(orbit[i], point);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestPoint = orbit[i];
+                }
+            }
+
+            return closestPoint;
+        }
+
+        public static Vector3[] GetPointsBetweenEntranceAndExit(Vector3[] orbit, Vector3 entrance, Vector3 exit)
+        {
+            var entranceIndex = Array.IndexOf(orbit, orbit.OrderBy(p => Vector3.Distance(p, entrance)).First());
+            var exitIndex = Array.IndexOf(orbit, orbit.OrderBy(p => Vector3.Distance(p, exit)).First());
+
+            if (entranceIndex > exitIndex)
+            {
+                (entranceIndex, exitIndex) = (exitIndex, entranceIndex);
+            }
+
+            return orbit.Skip(entranceIndex).Take(exitIndex - entranceIndex + 1).ToArray();
         }
     }
 }
